@@ -400,7 +400,7 @@ def parse_arguments() -> argparse.Namespace:
                        help='Directory name for difference blocks (relative to data-root)')
     parser.add_argument('--cam-params-dir', type=str, default='cmt_est/gso',
                        help='Directory name for camera parameters (relative to data-root)')
-    parser.add_argument('--output-dir', type=str, default='./03_results/predicted_path',
+    parser.add_argument('--output-dir', type=str, default='./06_results/predicted_path',
                        help='Output directory for results')
     
     # Camera configuration

@@ -1,0 +1,1 @@
+python 04_reconstruction/recon_im_data.py configs/instant-mesh-base.yaml ../../06_results/generated_videos_im_style

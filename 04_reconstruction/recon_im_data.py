@@ -1,3 +1,4 @@
+"""Script modified from https://github.com/TencentARC/InstantMesh/blob/main/run.py"""
 import os
 import argparse
 import numpy as np
@@ -5,11 +6,18 @@ import torch
 import rembg
 from PIL import Image
 import sys
+
 original_cwd = os.getcwd()
-sys.path.insert(0, "05_externals/instant_mesh")
 os.chdir("05_externals/instant_mesh")
-
-
+sys.path.insert(0,".")
+sys.path.insert(1,"../../04_reconstruction")
+from camera_utils import (
+    FOV_to_intrinsics, 
+    get_zero123plus_input_cameras,
+    get_circular_camera_poses,
+    get_actr_input_cameras,
+    decompose_world_mat
+)
 from torchvision.transforms import v2
 from pytorch_lightning import seed_everything
 from omegaconf import OmegaConf
@@ -19,13 +27,6 @@ from huggingface_hub import hf_hub_download
 from diffusers import DiffusionPipeline, EulerAncestralDiscreteScheduler
 
 from src.utils.train_util import instantiate_from_config
-from src.utils.camera_util import (
-    FOV_to_intrinsics, 
-    get_zero123plus_input_cameras,
-    get_circular_camera_poses,
-    get_actr_input_cameras,
-    decompose_world_mat
-)
 from src.utils.mesh_util import save_obj, save_obj_with_mtl
 from src.utils.infer_util import remove_background, resize_foreground, save_video
 
@@ -93,7 +94,7 @@ def render_frames(model, planes, render_cameras, render_size=512, chunk_size=1, 
 parser = argparse.ArgumentParser()
 parser.add_argument('config', type=str, help='Path to config file.')
 parser.add_argument('input_path', type=str, help='Path to input image or directory.')
-parser.add_argument('--output_path', type=str, default='06_results/generated_videos_im_style', help='Output directory.')
+parser.add_argument('--output_path', type=str, default='../../06_results/generated_videos_im_style', help='Output directory.')
 parser.add_argument('--diffusion_steps', type=int, default=75, help='Denoising Sampling steps.')
 parser.add_argument('--seed', type=int, default=42, help='Random seed for sampling.')
 parser.add_argument('--scale', type=float, default=1.0, help='Scale of generated object.')
@@ -158,10 +159,10 @@ model = model.eval()
 
 # make output directories
 config_name = "actr"
-image_path = os.path.join(args.output_path, config_name, 'images')
-mesh_path = os.path.join(args.output_path, config_name, 'meshes')
-video_path = os.path.join(args.output_path, config_name, 'videos')
-camera_path = os.path.join(args.output_path, config_name, 'camera')
+image_path = os.path.join(args.output_path, 'images')
+mesh_path = os.path.join(args.output_path, 'meshes')
+video_path = os.path.join(args.output_path, 'videos')
+camera_path = os.path.join(args.output_path, 'camera')
 
 os.makedirs(image_path, exist_ok=True)
 os.makedirs(mesh_path, exist_ok=True)
@@ -183,7 +184,6 @@ print(f'Total number of input images: {len(input_files)}')
 ###############################################################################
 input_files = os.listdir(image_path)
 outputs = []
-input_files = ["01030.png"]
 for idx, image_file in enumerate(input_files):
     name = os.path.basename(image_file).split('.')[0]
     print(f'[{idx+1}/{len(input_files)}] Imagining {name} ...')

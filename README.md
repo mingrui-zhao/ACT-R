@@ -9,7 +9,7 @@ ACT-R addresses the challenge of selecting optimal camera viewpoints for 3D reco
 ## Prerequisites
 
 - Python 3.10+
-- CUDA-compatible GPU (recommended)
+- CUDA-compatible GPU (recommended), this repository has been tested under NVIDIA RTX4090 with CUDA 12.1
 - Conda package manager
 
 ## Installation
@@ -80,7 +80,7 @@ python 02_compute_trajectory/cal_cam_trajectories.py
 1. Calculate segment-wise optimal elevation increments
 2. Convert increments to absolute azimuth and elevation pairs
 
-**Output:** Trajectories saved to `06_results/predicted_trajectory/`
+**Output:** Trajectories saved to `06_results/predicted_path/`
 
 ### Step 3: Video Generation
 
@@ -90,7 +90,6 @@ Generate orbital videos using SV3D:
 
 2. Generate videos:
 ```bash
-python cal_camera_params.py
 bash 03_generate_videos/gen_gso_videos.sh
 ```
 
@@ -101,6 +100,7 @@ bash 03_generate_videos/gen_gso_videos.sh
 Extract frames and prepare data for reconstruction:
 
 ```bash
+python 04_reconstruction/cal_camera_params.py
 python 04_reconstruction/process_video_data.py
 ```
 
@@ -114,7 +114,6 @@ Create a separate environment following the [NeUS installation guide](https://gi
 **Run reconstruction:**
 ```bash
 conda activate neus
-python 04_reconstruction/cal_camera_params.py
 bash 04_reconstruction/recon_neus_gso.sh
 ```
 
@@ -127,6 +126,7 @@ Create a separate environment following the [InstantMesh installation guide](htt
 
 **Run reconstruction:**
 ```bash
+conda activate instantmesh
 python 04_reconstruction/organise_im_data.py
 bash 04_reconstruction/recon_im_gso.sh
 ```

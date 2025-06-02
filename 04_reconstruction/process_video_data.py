@@ -237,7 +237,7 @@ def main():
     base_dir = "./06_results"
     
     # Get input directory path from user
-    input_dir = input("Please enter the path to the input directory containing images and videos: ")
+    input_dir = "06_results/generated_videos"
     input_dir = os.path.abspath(input_dir)  # Convert to absolute path
     
     if not os.path.exists(input_dir):

@@ -1,3 +1,4 @@
+"""Script modified from https://github.com/Stability-AI/generative-models/blob/main/scripts/sampling/simple_video_sample.py"""
 import math
 import os
 import sys
