@@ -1,0 +1,9 @@
+[submodule "05_externals/sv3d"]
+	path = 05_externals/sv3d
+	url = git@github.com:Stability-AI/generative-models.git
+[submodule "05_externals/instant_mesh"]
+	path = 05_externals/instant_mesh
+	url = git@github.com:TencentARC/InstantMesh.git
+[submodule "05_externals/neus"]
+	path = 05_externals/neus
+	url = git@github.com:Totoro97/NeuS.git
