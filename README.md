@@ -28,6 +28,11 @@ pip install -r requirements.txt
 ```
 
 ## Dataset Setup
+### Data Preprocessing 
+
+(1) Camera pose estimation: Refer to [the code here](https://1drv.ms/f/c/a0004126ab48d040/EkDQSKsmQQAggKD9rAEAAAABf7wWKkFKu7LBgMubV4ALgQ?e=zVruSV). Currently the checkpoint is missing and we are working on retrain the model.
+
+(2) Generate slice imagess: Go to [Slice3D - Testing on Single Image](https://github.com/yizhiwang96/Slice3D?tab=readme-ov-file#testing-on-single-image), using regression-based slicing.
 
 ### Download Preprocessed GSO Dataset
 
