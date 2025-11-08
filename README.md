@@ -1,4 +1,24 @@
-# ACT-R: Adaptive Camera Trajectories for Single View 3D Reconstruction
+<p align="center">
+
+  <h1 align="center"><a href="https://mingrui-zhao.github.io/ACT-R/" target="_blank">ACT-R: Adaptive Camera Trajectories for Single-View 3D Reconstruction</a></h1>
+
+  <p align="center">
+    <a href="https://yizhiwang96.github.io/" target="_blank"><strong>Yizhi Wang*</strong></a>
+    ·
+    <a href="https://mingrui-zhao.github.io/" target="_blank"><strong>Mingrui Zhao*</strong></a>
+    ·
+    <a href="https://www.cs.sfu.ca/~haoz/" target="_blank"><strong>Hao (Richard) Zhang</strong></a>
+    <br />
+    <i>International Conference on 3D Vision (3DV), 2026</i>    
+  </p>
+
+  <p align="center">
+    <a href="https://arxiv.org/abs/2505.08239" target="_blank"><strong>arXiv</strong></a>
+    |
+    <a href="https://mingrui-zhao.github.io/ACT-R/" target="_blank"><strong>Project Page</strong></a>
+  </p>
+
+</p>
 
 A research implementation for generating adaptive camera trajectories to improve single-view 3D reconstruction quality through optimized viewpoint selection.
 
@@ -159,9 +179,9 @@ If you use this code in your research, please cite:
 ```bibtex
 @article{wang2025act,
   title={ACT-R: Adaptive Camera Trajectories for 3D Reconstruction from Single Image},
-  author={Wang, Yizhi and Zhao, Mingrui and Mahdavi-Amiri, Ali and Zhang, Hao},
-  journal={arXiv preprint arXiv:2505.08239},
-  year={2025}
+  author={Wang, Yizhi and Zhao, Mingrui and Zhang, Hao},
+  journal={3DV},
+  year={2026}
 }
 ```
 
