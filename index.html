@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ACT-R: Adaptive Camera Trajectories for Single-View 3D Reconstruction</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,800italic,400,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/project.css" media="screen" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/iconize.css" />
+    <script src="js/google-code-prettify/prettify.js"></script> -->
+    <!-- MathJax for rendering mathematical equations -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  </head>
+
+  <!-- cover -->
+  <section>
+    <div class="jumbotron text-center mt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2>ACT-R: Adaptive Camera Trajectories for Single-View 3D Reconstruction
+            </h2>
+            <h4 style="color:#5a6268;">3DV 2026</h4>
+            <hr>
+            <h6>
+                <a href="https://yizhiwang96.github.io/" target="_blank">Yizhi Wang*</a>,
+                <a href="https://mingrui-zhao.github.io/" target="_blank">Mingrui Zhao*</a>,
+                <a href="https://www.cs.sfu.ca/~haoz/" target="_blank">Hao (Richard) Zhang</a>,
+            <p>
+                Simon Fraser University
+            </p>
+
+            <div class="row justify-content-center">
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://arxiv.org/abs/2505.08239" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> Paper </a> </p>
+              </div>
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/mingrui-zhao/ACT-R" role="button"  target="_blank">
+                    <i class="fa fa-github-alt"></i> Code </a> </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- abstract -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Abstract</h3>
+            <hr style="margin-top:0px">
+            <h6 style="color:#8899a5"> We propose a simple way to guide multi-view synthesis on an adaptive camera trajectory, better facilita subsequent 3D reconstruction. </h6>
+
+              <img src="figures/teaser.jpg" alt="Teaser" width="80%">
+
+			        <br>
+
+          <p class="text-left">
+            We introduce the simple idea of adaptive view planning to multi-view synthesis, aiming to improve both occlusion revelation 
+and 3D consistency for single-view 3D reconstruction. Instead of producing an unordered set of views independently or simultaneously, we 
+generate a sequence of views, leveraging temporal consistency to enhance 3D coherence. Importantly, our view sequence is not determined by a pre-determined and fixed camera setup. Instead, we compute an adaptive camera trajectory (ACT), to maximize the visibility of occluded regions of the 3D object to be reconstructed. 
+Once the best orbit is found, we feed it to a video diffusion model to generate novel views around the orbit, which can then be passed to any multi-view 3D reconstruction model to obtain the final result. Our multi-view synthesis pipeline is quite efficient since it involves no run-time training/optimization, only forward inferences by applying pre-trained models for occlusion analysis and multi-view synthesis.
+Our method predicts camera trajectories that reveal occlusions effectively and produce consistent novel views, significantly improving 3D reconstruction over SOTA alternatives on the unseen GSO dataset. 
+          </p>
+        
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h2>Method</h2>
+            <hr style="margin-top:0px">
+            <img src="figures/pipeline.png" alt="ACT-R Pipeline" width="95%">
+            <p class="text-center">
+              <span style="font-weight: bold;">Pipeline overview</span> of our single-view reconstruction method, ACT-R, with adaptive camera trajectories (ACT). We first employ <a href="https://yizhiwang96.github.io/Slice3D/" target="_blank">Slice3D</a> to produce the slice images of the input object, with the slicing direction from the camera to the object center. Then we compute the semantic difference between the input and its slices by comparing their $512 \times 7 \times 7$ feature maps extracted from <a href="https://arxiv.org/abs/1409.1556" target="_blank">VGG16</a>. Each difference map $d_i \in [0,1]^{7 \times 7}$ is up-scaled and overlaid onto slice images for better visualization. Next, we identify the regions that have significant semantic differences, and plan the camera trajectories based on them. Finally, we condition <a href=“https://sv3d.github.io/" target="_blank">SV3D </a> on our planned trajectories, yielding a sequence of views, which can be fed into  <a href="https://lingjie0206.github.io/papers/NeuS/" target="_blank">NeUS</a> or  <a href="https://github.com/TencentARC/InstantMesh" target="_blank">InstantMesh (IM)</a> for 3D reconstruction.
+            </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h2>Trajectory Planning</h2>
+            <hr style="margin-top:0px">
+            <img src="figures/trajectory_plan_combine.png" alt="Trajectory Planning" width="95%">
+            <p class="text-center" style="margin-top: 10px;">
+              Illustration of camera trajectory planning. <span style="color: #0066CC; font-weight: bold;">Left</span>: Transforming the semantic difference maps into 3D blocks, where lighter yellow indicates greater differences. <span style="color: #009900; font-weight: bold;">Middle</span>: Visualization of different camera orbits. Red: fixed elevation; Green: variable elevations that capture greater visibility. ``diff'' and ``cam'' denote difference and camera, respectively. <span style="color: #CC3300; font-weight: bold;">Right</span>: Predicted adaptive trajectories showcase.
+            </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+
+  <!-- citing -->
+  <div class="container">
+    <div class="row ">
+      <div class="col-12">
+          <h3>Citation</h3>
+          <hr style="margin-top:0px">
+              <pre style="background-color: #e9eeef;padding: 1.25em 1.5em">
+<code>@article{wang2025act,
+  title={ACT-R: Adaptive Camera Trajectories for Single View 3D Reconstruction},
+  author={Wang, Yizhi and Zhao, Mingrui and Zhang, Hao},
+  journal={3DV},
+  year={2026}}
+</code>
+              </pre>
+          <hr>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center" style="margin-bottom:10px">
+      Thanks to <a href="https://lioryariv.github.io/" target="_blank">Lior Yariv</a> for the website template.
+  </footer>
+
+</body>
+</html>
