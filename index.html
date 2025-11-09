@@ -11,6 +11,44 @@
         color: #2E86AB;
         font-weight: bold;
       }
+      .title-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .title-logo {
+        height: 120px;
+        flex-shrink: 0;
+      }
+      .title-text {
+        margin: 0;
+        white-space: nowrap;
+      }
+      @media (max-width: 1200px) {
+        .title-text {
+          white-space: normal;
+          font-size: 1.75rem;
+        }
+        .title-logo {
+          height: 100px;
+        }
+      }
+      @media (max-width: 768px) {
+        .title-container {
+          flex-direction: column;
+          gap: 15px;
+        }
+        .title-logo {
+          height: 80px;
+        }
+        .title-text {
+          font-size: 1.5rem;
+          white-space: normal;
+          text-align: center;
+        }
+      }
     </style>
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
@@ -37,9 +75,9 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px;">
-              <img src="figures/logo.png" alt="ACT-R Logo" style="height: 120px;">
-              <h2 style="margin: 0; white-space: nowrap;"><span class="actr-highlight">ACT-R</span>: <span class="actr-highlight">A</span>daptive <span class="actr-highlight">C</span>amera <span class="actr-highlight">T</span>rajectories for Single-View 3D <span class="actr-highlight">R</span>econstruction</h2>
+            <div class="title-container">
+              <img src="figures/logo.png" alt="ACT-R Logo" class="title-logo">
+              <h2 class="title-text"><span class="actr-highlight">ACT-R</span>: <span class="actr-highlight">A</span>daptive <span class="actr-highlight">C</span>amera <span class="actr-highlight">T</span>rajectories for Single-View 3D <span class="actr-highlight">R</span>econstruction</h2>
             </div>
             <h4 style="color:#5a6268; margin: 0;">3DV 2026</h4>
             <hr>
